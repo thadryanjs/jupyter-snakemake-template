@@ -1,0 +1,12 @@
+title: JuPyteR Template
+author: Thadryan
+
+execute:
+  execute_notebooks: force
+
+repository:
+  path_to_book: "output/_book"
+
+latex:
+  latex_engine: pdflatex
+  use_jupyterbook_latex: true

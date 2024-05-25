@@ -1,0 +1,6 @@
+format: jb-book
+root: readme
+chapters:
+- file: 00_r-template
+- file: 01_py-template
+- file: 02_julia-template

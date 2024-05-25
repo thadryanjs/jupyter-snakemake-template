@@ -1,0 +1,59 @@
+
+# this should only need to happen once per book, but it is here for reference
+rule initialize_books:
+    shell:
+        """
+        jupytext --set-formats ipynb,R:percent 00_r-template.R
+        jupytext --set-formats ipynb,py:percent 01_py-template.py
+        jupytext --set-formats ipynb,jl:percent 02_julia-template.jl
+
+        jupytext --set-kernel ir 00_r-template.R
+        jupytext --set-kernel python3 01_py-template.py
+        jupytext --set-kernel julia-1.10 02_julia-template.jl
+
+        jupytext 00_r-template.R --to ipynb
+        jupytext 01_py-template.py --to ipynb
+        jupytext 02_julia-template.jl --to ipynb
+        """
+
+
+rule format_code:
+    shell:
+        """
+        black *.py
+        R -e "styler::style_dir()"
+        julia -e 'using JuliaFormatter; \
+            format(".", whitespace_typedefs=true, whitespace_ops_in_indices=true)'
+        """
+
+
+rule r_template:
+    shell:
+        """
+        jupytext --sync 00_r-template.ipynb
+        jupyter nbconvert 00_r-template --execute --inplace
+        """
+
+rule py_template:
+    shell:
+        """
+        jupytext --sync 01_py-template.ipynb
+        jupyter nbconvert 01_py-template --execute --inplace
+        """
+
+
+rule julia_template:
+    shell:
+        """
+        jupytext --sync 02_julia-template.ipynb
+        jupyter nbconvert 02_julia-template --execute --inplace
+        """
+
+
+rule build_book:
+    shell:
+        """
+        conda env export > environment.yml
+        jupyter-book build .
+        """
+
