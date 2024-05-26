@@ -20,12 +20,25 @@
 # # Python Template
 
 
-# %% [code
-def main():
-    print("Hello, World!")
+# %% [code]
+from pydantic import ValidationError, validate_call
 
 
-main()
+class Config:
+    strict = True
+
+
+@validate_call(config=Config)
+def test(a: int, b: int) -> int:
+    return a + b
+
+
+try:
+    test(1, "1")
+except ValidationError as e:
+    print(e)
+
+print("Done!")
 
 
 # %% [code] {"tags": ["hide-input"]}

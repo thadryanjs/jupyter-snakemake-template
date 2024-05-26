@@ -19,7 +19,34 @@
 # # R Template
 
 # %% [code]
+library(validate)
+
 head(mtcars)
+
+
+# %% [code]
+rules <- validator(
+  speed >= 0,
+  dist >= 0,
+  speed / dist <= 1.5,
+  cor(speed, dist) >= 0.2
+)
+
+(results <- confront(mtcars, rules))
+
+
+# %% [code]
+class(mtcars$disp)
+
+
+# %% [code]
+rules <- validator(is.character(disp))
+
+(results <- confront(mtcars, rules))
+
+
+# %% [code]
+(summary(results))
 
 
 # %% [code] {"tags": ["hide-input"]}

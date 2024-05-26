@@ -17,4 +17,7 @@ echo "SLURM ID: $SLURM_JOB_ID" > _slurm.out
 conda env export > environment.yml
 
 snakemake format_code -c1
+snakemake r_template -c1
+snaemake py_template -c1
+snakemake julia_template -c1
 snakemake build_book -c1
