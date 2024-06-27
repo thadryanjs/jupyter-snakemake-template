@@ -13,3 +13,11 @@ conda env create -f environment.yml
 # need to test this command
 julia -e 'using Pkg; Pkg.activate("."); Pkg.instantiate()'
 ```
+
+## Setting up new notebooks from scripts
+
+```
+jupytext script-name.py --to ipynb # or .R, .jl, etc.
+jupytext --set-formats ipynb,py:percent script-name.py # or .R, .jl, etc.
+jupytext --set-kernel python3 script-name.ipynb # or ir, julia-1.9, etc.
+```

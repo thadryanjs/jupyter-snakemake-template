@@ -36,9 +36,11 @@ def test(a: int, b: int) -> int:
 try:
     test(1, "1")
 except ValidationError as e:
+    print("===\nType error???\n===")
     print(e)
 
-print("Done!")
+
+
 
 
 # %% [code] {"tags": ["hide-input"]}
